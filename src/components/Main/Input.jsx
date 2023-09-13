@@ -89,7 +89,9 @@ const Input = () => {
             </div>
           </div>
         </form>
-        <p className="mt-2 mb-0 text-info">Пример: {t('main.example')}</p>
+        <p className="mt-2 mb-0 text-info">
+          <span className="text-light">{t('main.example')} </span> 
+          {t('main.exampleUrl')}</p>
         <p className="feedback m-0 position-absolute small text-danger">
           {formik.errors.inputUrl}
         </p>

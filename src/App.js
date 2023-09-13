@@ -1,13 +1,6 @@
-import React from "react"
-import Main from "./components/Main/Main";
-import Footer from "./components/Footer/Footer";
+import React from 'react';
+import Main from './components/Main/Main';
 
-
-const App = () => (
-  <div>
-    <Main />
-    <Footer />
-  </div>
-)
+const App = () => <Main />;
 
 export default App;
