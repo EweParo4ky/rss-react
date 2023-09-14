@@ -6,17 +6,24 @@ export default {
       inputPlaceholder: 'Ссылка RSS',
       submitBtn: 'Добавить',
       example: 'Пример:',
-      exampleUrl: 'http://www.sports.ru/rss/main.xml',
+      exampleUrl: {
+        1: 'https://ru.hexlet.io/lessons.rss',
+        2: 'http://www.sports.ru/rss/main.xml',
+      },
       validationErrors: {
         notOneOf: 'RSS уже существует',
         mustBeUrl: 'Ссылка должна быть валидным URL',
         invalidRSS: 'Ресурс не содержит валидный RSS',
       },
     },
+    posts: {
+      header: 'Посты',
+      btn:'Просмотр',
+    },
     footer: {
-        created: 'Создано ',
-        authorLink: 'https://github.com/EweParo4ky',
-        authorName: 'EweParo4ky',
+      created: 'Создано ',
+      authorLink: 'https://github.com/EweParo4ky',
+      authorName: 'EweParo4ky',
     },
   },
 };

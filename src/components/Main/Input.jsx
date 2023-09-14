@@ -2,19 +2,32 @@ import React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
+import _ from 'lodash';
 import axios from 'axios';
+import parser from '../../parser';
+import { actions as feedsActions } from '../../slices/feedsSlice';
+import { actions as postsActions} from '../../slices/postsSlice'
 
-const parser = (data) => {
-const parserInstance =  new DOMParser();
-return parserInstance.parseFromString(data, "text/xml");
-}
+const addIdToPosts = (items, feedId) => {
+  const postsWithId = items.map((item) => {
+    item.id = _.uniqueId();
+    item.feedId = feedId;
+    return item;
+  });
+  return postsWithId;
+};
+
 
 const Input = () => {
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+  console.log('state', state);
   const { t } = useTranslation();
   const inputRef = useRef();
   const [urls, setUrls] = useState([]);
-  console.log('urls', urls);
+  // console.log('urls', urls);
 
   const validationSchema = yup.object().shape({
     inputUrl: yup
@@ -30,7 +43,6 @@ const Input = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      // console.log('values', values);
       try {
         setUrls([...urls, values.inputUrl]);
         const response = await axios.get(
@@ -38,10 +50,18 @@ const Input = () => {
         );
         console.log('response', response);
         const parsedData = parser(response.data.contents);
-        console.log('parsedData', parsedData);
+        console.log('parsedData in input', parsedData);
+        const { feed, posts } = parsedData;
+        feed.id = _.uniqueId();
+        const postsWithId = addIdToPosts(posts, feed.id);
+        dispatch(feedsActions.addFeed(feed));
+        console.log('postsWithId', postsWithId);
+        dispatch(postsActions.addPosts(postsWithId));
+
+        console.log('postsWithId', postsWithId);
         values.inputUrl = '';
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
   });
@@ -89,9 +109,13 @@ const Input = () => {
             </div>
           </div>
         </form>
-        <p className="mt-2 mb-0 text-info">
+        <ul className="mt-2 mb-0 text-info"
+            style={{listStyleType:'none'}}
+        >
           <span className="text-light">{t('main.example')} </span> 
-          {t('main.exampleUrl')}</p>
+          <li>{t('main.exampleUrl.1')}</li>
+          <li>{t('main.exampleUrl.2')}</li>
+          </ul>
         <p className="feedback m-0 position-absolute small text-danger">
           {formik.errors.inputUrl}
         </p>

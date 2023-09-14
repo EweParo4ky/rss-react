@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from './Input';
-import Footer from "../Footer/Footer";
+import Posts from './Posts';
+import Footer from '../Footer/Footer';
 
 const Main = () => {
   return (
@@ -8,11 +9,12 @@ const Main = () => {
       <section className="container-fluid bg-dark p-5 w-75">
         <Input />
       </section>
-      <section className="container-fluid container-xxl p-5 w-75"></section>
+      <section className="container-fluid container-xxl p-5 w-75">
+        <Posts />
+      </section>
       <Footer />
     </div>
   );
 };
 
 export default Main;
-

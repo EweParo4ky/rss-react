@@ -6,12 +6,19 @@ export default {
       inputPlaceholder: 'RSS link',
       submitBtn: 'Add',
       example: 'Example:',
-      exampleUrl: 'http://www.sports.ru/rss/main.xml',
+      exampleUrl: {
+        1: 'https://ru.hexlet.io/lessons.rss',
+        2: 'http://www.sports.ru/rss/main.xml',
+      },
       validationErrors: {
         notOneOf: 'RSS already exists',
         mustBeUrl: 'The link must be a valid URL',
         invalidRSS: 'The resource does not contain valid RSS',
       },
+    },
+    posts: {
+      header: 'Posts',
+      btn:'View',
     },
     footer: {
         created: 'Created by ',
