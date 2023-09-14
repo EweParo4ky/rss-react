@@ -18,12 +18,15 @@ export default {
     },
     posts: {
       header: 'Posts',
-      btn:'View',
+      btn: 'View',
+    },
+    feeds: {
+      header: 'Фиды',
     },
     footer: {
-        created: 'Created by ',
-        authorLink: 'https://github.com/EweParo4ky',
-        authorName: 'EweParo4ky',
+      created: 'Created by ',
+      authorLink: 'https://github.com/EweParo4ky',
+      authorName: 'EweParo4ky',
     },
   },
 };

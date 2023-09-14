@@ -3,13 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = [];
 
 const feedsSlice = createSlice({
-    name: 'feeds',
-    initialState,
-     reducers: {
-        addFeed: (state, action) => {
-            state.push(action.payload);
-        } 
-     },
+  name: 'feeds',
+  initialState,
+  reducers: {
+    addFeed: (state, action) => {
+      state.push(action.payload);
+    },
+  },
 });
 
 export const { actions } = feedsSlice;

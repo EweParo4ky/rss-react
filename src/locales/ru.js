@@ -18,7 +18,10 @@ export default {
     },
     posts: {
       header: 'Посты',
-      btn:'Просмотр',
+      btn: 'Просмотр',
+    },
+    feeds: {
+      header: 'Фиды',
     },
     footer: {
       created: 'Создано ',

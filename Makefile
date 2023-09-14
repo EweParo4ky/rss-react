@@ -4,6 +4,9 @@ start:
 lint:
 	npx eslint .
 
+lintFix: 
+	npm run lint
+
 install:
 	npm ci
 

@@ -2,8 +2,8 @@ const getFeed = (parsedData) => {
   const feedTitle = parsedData.querySelector('title').textContent;
   const feedLink = parsedData.querySelector('link').textContent;
   const feedDescription = parsedData.querySelector('description').textContent;
-//   const feedImg = parsedData.querySelector('image');
-//   const imgUrl = feedImg.querySelector('url').textContent;
+  //   const feedImg = parsedData.querySelector('image');
+  //   const imgUrl = feedImg.querySelector('url').textContent;
   return { feedTitle, feedLink, feedDescription };
 };
 
@@ -15,11 +15,11 @@ const getPosts = (parsedData) => {
     const link = item.querySelector('link').textContent;
     const description = item.querySelector('description').textContent;
     return {
-        title,
-        link,
-        description,
+      title,
+      link,
+      description,
     };
-  })
+  });
   console.log('posts in parser', posts);
   return posts;
 };

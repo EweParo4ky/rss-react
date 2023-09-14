@@ -1,5 +1,5 @@
-import React from 'react';
-import { useRef, useEffect, useState } from 'react';
+/* eslint-disable no-param-reassign */
+import React, { useRef, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import _ from 'lodash';
 import axios from 'axios';
 import parser from '../../parser';
 import { actions as feedsActions } from '../../slices/feedsSlice';
-import { actions as postsActions} from '../../slices/postsSlice'
+import { actions as postsActions } from '../../slices/postsSlice';
 
 const addIdToPosts = (items, feedId) => {
   const postsWithId = items.map((item) => {
@@ -19,34 +19,38 @@ const addIdToPosts = (items, feedId) => {
   return postsWithId;
 };
 
-
 const Input = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-  console.log('state', state);
+  const store = useSelector((state) => state);
+  console.log('state', store);
   const { t } = useTranslation();
   const inputRef = useRef();
   const [urls, setUrls] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+  const [validationErrors, setValidationError] = useState('');
   // console.log('urls', urls);
 
-  const validationSchema = yup.object().shape({
-    inputUrl: yup
+  const handleChangeValue = (e) => setInputValue(e.target.value);
+
+  const validateUrl = (url, linksList) => {
+    const schema = yup
       .string()
       .trim()
       .url(t('main.validationErrors.mustBeUrl'))
-      .notOneOf(urls, t('main.validationErrors.notOneOf')),
-  });
+      .notOneOf(linksList, t('main.validationErrors.notOneOf'));
+    return schema.validate(url);
+  };
 
   const formik = useFormik({
     initialValues: {
       inputUrl: '',
     },
-    validationSchema,
-    onSubmit: async (values) => {
+    onSubmit: async () => {
       try {
-        setUrls([...urls, values.inputUrl]);
+        const validatedUrl = await validateUrl(inputValue, urls);
+        setUrls([...urls, validatedUrl]);
         const response = await axios.get(
-          `https://allorigins.hexlet.app/get?url=${values.inputUrl}`
+          `https://allorigins.hexlet.app/get?url=${validatedUrl}`,
         );
         console.log('response', response);
         const parsedData = parser(response.data.contents);
@@ -55,13 +59,14 @@ const Input = () => {
         feed.id = _.uniqueId();
         const postsWithId = addIdToPosts(posts, feed.id);
         dispatch(feedsActions.addFeed(feed));
-        console.log('postsWithId', postsWithId);
         dispatch(postsActions.addPosts(postsWithId));
 
         console.log('postsWithId', postsWithId);
-        values.inputUrl = '';
+        setValidationError('');
+        setInputValue('');
       } catch (error) {
-        console.error(error);
+        setValidationError(error.message);
+        console.log(error);
       }
     },
   });
@@ -93,8 +98,8 @@ const Input = () => {
                   autoComplete="off"
                   placeholder={t('main.inputPlaceholder')}
                   onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  value={formik.values.inputUrl}
+                  onChange={handleChangeValue}
+                  value={inputValue}
                 />
                 <label htmlFor="inputUrl">{t('main.inputPlaceholder')}</label>
               </div>
@@ -109,15 +114,26 @@ const Input = () => {
             </div>
           </div>
         </form>
-        <ul className="mt-2 mb-0 text-info"
-            style={{listStyleType:'none'}}
+        <ul
+          className="mt-2 mb-0 text-info ps-0"
+          style={{ listStyleType: 'none' }}
         >
-          <span className="text-light">{t('main.example')} </span> 
-          <li>{t('main.exampleUrl.1')}</li>
-          <li>{t('main.exampleUrl.2')}</li>
-          </ul>
+          <span className="text-light">
+            {t('main.example')}
+          </span>
+          <li>
+            <a href="inputUrl" className="text-info">
+              {t('main.exampleUrl.1')}
+            </a>
+          </li>
+          <li>
+            <a href="inputUrl" className="text-info">
+              {t('main.exampleUrl.2')}
+            </a>
+          </li>
+        </ul>
         <p className="feedback m-0 position-absolute small text-danger">
-          {formik.errors.inputUrl}
+          {validationErrors}
         </p>
       </div>
     </div>
