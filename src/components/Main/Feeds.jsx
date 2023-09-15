@@ -1,10 +1,28 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { actions as feedsActions } from '../../slices/feedsSlice';
+import { actions as postsActions } from '../../slices/postsSlice';
+import { setFormStatus } from '../../slices/inputSlice';
 
 const Feeds = () => {
-  const feeds = useSelector((state) => state.feeds);
+  const feeds = useSelector((state) => state.feeds.feeds);
+  const store = useSelector((state) => state);
+  console.log('state in feeds', store);
+  const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  const handleRemove = (id) => {
+    dispatch(feedsActions.removeFeed(id));
+    dispatch(postsActions.removePosts(id));
+    console.log('FEEEED LENGTH', feeds.length);
+    console.log('FEEEED', feeds);
+    const feedback = feeds.length === 1 ? t('main.deletedAll') : t('main.deleted');
+    dispatch(setFormStatus({
+      feedback,
+    }));
+  };
+
   return (
     <div className="col-md-10 col-lg-4 mx-auto order-0 order-lg-1 feeds">
       <div className="card border-0">
@@ -19,12 +37,19 @@ const Feeds = () => {
             return (
               <li
                 key={feed.id}
-                className="list-group-item border-0 border-end-0"
+                className="list-group-item d-flex justify-content-between align-items-start border-0 border-end-0 bg-light"
               >
                 <h3 className="h6 m-0">{feed.feedTitle}</h3>
                 <p className="m-0 small text-black-50">
                   {feed.feedDescription}
                 </p>
+                <button
+                  className="btn btn-sm rm-btn"
+                  type="button"
+                  onClick={() => handleRemove(feed.id)}
+                >
+                  <span className="material-symbols-outlined">delete</span>
+                </button>
               </li>
             );
           })}

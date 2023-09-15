@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ import axios from 'axios';
 import parser from '../../parser';
 import { actions as feedsActions } from '../../slices/feedsSlice';
 import { actions as postsActions } from '../../slices/postsSlice';
+import { setUrls, setInputValue, setFormStatus } from '../../slices/inputSlice';
 
 const addIdToPosts = (items, feedId) => {
   const postsWithId = items.map((item) => {
@@ -22,22 +23,26 @@ const addIdToPosts = (items, feedId) => {
 const Input = () => {
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
+  const urls = useSelector((state) => state.input.urls);
+  const inputValue = useSelector((state) => state.input.inputValue);
+  const formStatus = useSelector((state) => state.input.formStatus);
   console.log('state', store);
   const { t } = useTranslation();
   const inputRef = useRef();
-  const [urls, setUrls] = useState([]);
-  const [inputValue, setInputValue] = useState('');
-  const [validationStatus, setvalidationStatus] = useState({
-    status: 'filling',
-    feedback: '',
-  });
-  console.log('validationStatus', validationStatus);
+  // const [urls, setUrls] = useState([]);
+  // const [inputValue, setInputValue] = useState('');
+  // const [formStatus, setFormStatus] = useState({
+  //   status: 'filling',
+  //   feedback: '',
+  // });
+  // Перенести всё в отдельный слайс инпута!!!
+  console.log('formStatus in input', formStatus);
   // console.log('urls', urls);
 
-  const handleChangeValue = (e) => setInputValue(e.target.value);
+  const handleChangeValue = (e) => dispatch(setInputValue(e.target.value));
   const handleClick = (e) => {
     const value = e.target.textContent;
-    setInputValue(value);
+    dispatch(setInputValue(value));
   };
 
   const validateUrl = (url, linksList) => {
@@ -54,36 +59,43 @@ const Input = () => {
       inputUrl: '',
     },
     onSubmit: async () => {
-      setvalidationStatus({
+      dispatch(setFormStatus({
         status: 'sending',
-      });
+      }));
       try {
         const validatedUrl = await validateUrl(inputValue, urls);
-        setUrls([...urls, validatedUrl]);
+        console.log(validatedUrl, 'validatedUrl');
+        dispatch(setUrls([...urls, validatedUrl]));
         const response = await axios.get(
           `https://allorigins.hexlet.app/get?url=${validatedUrl}`,
         );
-        console.log('response', response);
+        // console.log('response', response);
         const parsedData = parser(response.data.contents);
-        console.log('parsedData in input', parsedData);
+        // console.log('parsedData in input', parsedData);
         const { feed, posts } = parsedData;
         feed.id = _.uniqueId();
         const postsWithId = addIdToPosts(posts, feed.id);
         dispatch(feedsActions.addFeed(feed));
         dispatch(postsActions.addPosts(postsWithId));
-
-        console.log('postsWithId', postsWithId);
-        setvalidationStatus({
+        // console.log('postsWithId', postsWithId);
+        dispatch(setFormStatus({
           status: 'loaded',
           feedback: t('main.loaded'),
-        });
-        setInputValue('');
+        }));
+        dispatch(setInputValue(''));
       } catch (error) {
-        setvalidationStatus({
-          status: 'failed',
-          feedback: error.message,
-        });
-        console.log(error);
+        if (error.isParserError) {
+          dispatch(setFormStatus({
+            status: 'failed',
+            feedback: t('main.validationErrors.invalidRSS'),
+          }));
+        } else {
+          dispatch(setFormStatus({
+            status: 'failed',
+            feedback: error.message,
+          }));
+        }
+        console.error(error.isParserError);
       }
     },
   });
@@ -103,7 +115,7 @@ const Input = () => {
               <div className="form-floating">
                 <input
                   className={`form-control w-100 ${
-                    formik.touched.inputUrl && validationStatus.errors
+                    formik.touched.inputUrl && formStatus.errors
                       ? 'is-invalid'
                       : ''
                   }`}
@@ -123,7 +135,7 @@ const Input = () => {
             </div>
             <div className="col-auto">
               <button
-                className="h-100 btn btn-lg btn-primary px-sm-5"
+                className={`h-100 btn btn-lg btn-primary px-sm-5 ${formStatus.status === 'sending' ? 'disabled' : null}`}
                 type="submit"
               >
                 {t('main.submitBtn')}
@@ -155,9 +167,9 @@ const Input = () => {
             </button>
           </li>
         </ul>
-        <p className="feedback m-0 position-absolute small 'text-danger">
-          {/* {validationStatus === 'loaded' ? 'text-succsess' : 'text-danger' */}
-          {validationStatus.feedback}
+        <p className={`feedback m-0 position-absolute small ${formStatus.status === 'failed' && 'text-danger'} ${formStatus.status === 'loaded' && 'text-success'} `}>
+          {formStatus.feedback}
+          {/* Реализовать перевод фидбека при переключении языка */}
         </p>
       </div>
     </div>

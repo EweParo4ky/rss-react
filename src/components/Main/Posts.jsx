@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 const Posts = () => {
-  const posts = useSelector((state) => state.posts);
+  const posts = useSelector((state) => state.posts.posts);
   const { t } = useTranslation();
   console.log('posts in Posts', posts);
   return (
     <div className="col-md-10 col-lg-8 order-1 mx-auto posts">
-      <div className="card border-0">
+      <div className="card border-0 bg-light">
         <div className="card-body">
           {posts.length !== 0 ? (
             <h2 className="card-title h4">{t('posts.header')}</h2>

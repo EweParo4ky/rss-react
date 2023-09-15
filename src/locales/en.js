@@ -16,13 +16,15 @@ export default {
         invalidRSS: 'The resource does not contain valid RSS',
       },
       loaded: 'RSS successfully loaded',
+      deleted: 'Feed was deleted',
+      deletedAll: 'All feeds were deleted',
     },
     posts: {
       header: 'Posts',
       btn: 'View',
     },
     feeds: {
-      header: 'Фиды',
+      header: 'Feeds',
     },
     footer: {
       created: 'Created by ',

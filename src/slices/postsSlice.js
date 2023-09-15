@@ -1,13 +1,20 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = [];
+const initialState = {
+  posts: [],
+};
 
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
     addPosts: (state, action) => {
-      state.unshift(...action.payload);
+      state.posts.unshift(...action.payload);
+    },
+    removePosts: (state, action) => {
+      const removedFeedId = action.payload;
+      state.posts = state.posts.filter((post) => post.id === removedFeedId);
     },
   },
 });

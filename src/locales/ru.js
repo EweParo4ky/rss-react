@@ -16,6 +16,8 @@ export default {
         invalidRSS: 'Ресурс не содержит валидный RSS',
       },
       loaded: 'RSS успешно загружен',
+      deleted: 'Фид удалён',
+      deletedAll: 'Все фиды были удалены',
     },
     posts: {
       header: 'Посты',
