@@ -27,10 +27,18 @@ const Input = () => {
   const inputRef = useRef();
   const [urls, setUrls] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const [validationErrors, setValidationError] = useState('');
+  const [validationStatus, setvalidationStatus] = useState({
+    status: 'filling',
+    feedback: '',
+  });
+  console.log('validationStatus', validationStatus);
   // console.log('urls', urls);
 
   const handleChangeValue = (e) => setInputValue(e.target.value);
+  const handleClick = (e) => {
+    const value = e.target.textContent;
+    setInputValue(value);
+  };
 
   const validateUrl = (url, linksList) => {
     const schema = yup
@@ -46,6 +54,9 @@ const Input = () => {
       inputUrl: '',
     },
     onSubmit: async () => {
+      setvalidationStatus({
+        status: 'sending',
+      });
       try {
         const validatedUrl = await validateUrl(inputValue, urls);
         setUrls([...urls, validatedUrl]);
@@ -62,10 +73,16 @@ const Input = () => {
         dispatch(postsActions.addPosts(postsWithId));
 
         console.log('postsWithId', postsWithId);
-        setValidationError('');
+        setvalidationStatus({
+          status: 'loaded',
+          feedback: t('main.loaded'),
+        });
         setInputValue('');
       } catch (error) {
-        setValidationError(error.message);
+        setvalidationStatus({
+          status: 'failed',
+          feedback: error.message,
+        });
         console.log(error);
       }
     },
@@ -86,7 +103,7 @@ const Input = () => {
               <div className="form-floating">
                 <input
                   className={`form-control w-100 ${
-                    formik.touched.inputUrl && formik.errors.inputUrl
+                    formik.touched.inputUrl && validationStatus.errors
                       ? 'is-invalid'
                       : ''
                   }`}
@@ -118,22 +135,29 @@ const Input = () => {
           className="mt-2 mb-0 text-info ps-0"
           style={{ listStyleType: 'none' }}
         >
-          <span className="text-light">
-            {t('main.example')}
-          </span>
+          <span className="text-light">{t('main.example')}</span>
           <li>
-            <a href="inputUrl" className="text-info">
+            <button
+              type="button"
+              onClick={(e) => handleClick(e)}
+              className="text-info btn btn-dark"
+            >
               {t('main.exampleUrl.1')}
-            </a>
+            </button>
           </li>
           <li>
-            <a href="inputUrl" className="text-info">
+            <button
+              type="button"
+              className="text-info btn btn-dark"
+              onClick={(e) => handleClick(e)}
+            >
               {t('main.exampleUrl.2')}
-            </a>
+            </button>
           </li>
         </ul>
-        <p className="feedback m-0 position-absolute small text-danger">
-          {validationErrors}
+        <p className="feedback m-0 position-absolute small 'text-danger">
+          {/* {validationStatus === 'loaded' ? 'text-succsess' : 'text-danger' */}
+          {validationStatus.feedback}
         </p>
       </div>
     </div>

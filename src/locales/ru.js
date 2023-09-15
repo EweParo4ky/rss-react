@@ -15,6 +15,7 @@ export default {
         mustBeUrl: 'Ссылка должна быть валидным URL',
         invalidRSS: 'Ресурс не содержит валидный RSS',
       },
+      loaded: 'RSS успешно загружен',
     },
     posts: {
       header: 'Посты',

@@ -13,5 +13,4 @@ const postsSlice = createSlice({
 });
 
 export const { actions } = postsSlice;
-// export const selectors = postsAdapter.getSelectors((state) => state.posts);
 export default postsSlice.reducer;
