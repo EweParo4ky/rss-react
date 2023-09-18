@@ -7,8 +7,6 @@ import { setFormStatus } from '../../slices/inputSlice';
 
 const Feeds = () => {
   const feeds = useSelector((state) => state.feeds.feeds);
-  const store = useSelector((state) => state);
-  console.log('state in feeds', store);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 

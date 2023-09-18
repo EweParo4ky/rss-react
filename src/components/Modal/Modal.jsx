@@ -20,7 +20,7 @@ const ModalWindow = () => {
           type="button"
           className="btn-close"
           aria-label="Close"
-          onClick={() => dispatch(toogleModal())}
+          onClick={() => dispatch(toogleModal(null))}
         />
       </Modal.Header>
       <Modal.Body>
@@ -29,7 +29,7 @@ const ModalWindow = () => {
       <Modal.Footer>
         <div className="d-flex justify-content-end">
           <Button className="me-2">{t('modal.btnRead')}</Button>
-          <Button>{t('modal.btnClose')}</Button>
+          <Button onClick={() => dispatch(toogleModal(null))}>{t('modal.btnClose')}</Button>
         </div>
       </Modal.Footer>
     </Modal>
