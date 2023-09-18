@@ -19,6 +19,10 @@ export default {
       deleted: 'Фид удалён',
       deletedAll: 'Все фиды были удалены',
     },
+    modal: {
+      btnRead: 'Читать полностью',
+      btnClose: 'Закрыть',
+    },
     posts: {
       header: 'Посты',
       btn: 'Просмотр',

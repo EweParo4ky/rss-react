@@ -19,6 +19,10 @@ export default {
       deleted: 'Feed was deleted',
       deletedAll: 'All feeds were deleted',
     },
+    modal: {
+      btnRead: 'Read more...',
+      btnClose: 'Close',
+    },
     posts: {
       header: 'Posts',
       btn: 'View',
