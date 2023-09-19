@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-// const handleChangeLng = () => {
-// i18n.changeLanguage('en')
-// }
+import { useDispatch } from 'react-redux';
+import { setFormStatus } from '../../slices/inputSlice';
 
 const Footer = () => {
   const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
+  const [currentLng, setCurrentLng] = useState('ru');
+
+  const handleChangeLng = (lng) => {
+    i18n.changeLanguage(lng);
+    setCurrentLng(lng);
+    dispatch(setFormStatus({ status: 'filling', feedback: t('footer.changed') }));
+  };
   return (
     <div
       id="footer"
@@ -22,17 +29,17 @@ const Footer = () => {
         <div>
           <button
             type="button"
-            className="btn btn-primary border-dark active"
-            onClick={() => i18n.changeLanguage('ru')}
+            className={`btn btn-primary border-dark ${currentLng === 'ru' ? 'active' : null}`}
+            onClick={() => handleChangeLng('ru')}
           >
-            RU
+            {t('footer.ru')}
           </button>
           <button
             type="button"
-            className="btn btn-primary border-dark"
-            onClick={() => i18n.changeLanguage('en')}
+            className={`btn btn-primary border-dark ${currentLng === 'en' ? 'active' : null}`}
+            onClick={() => handleChangeLng('en')}
           >
-            EN
+            {t('footer.en')}
           </button>
         </div>
       </div>

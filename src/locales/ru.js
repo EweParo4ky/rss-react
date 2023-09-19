@@ -34,6 +34,9 @@ export default {
       created: 'Создано ',
       authorLink: 'https://github.com/EweParo4ky',
       authorName: 'EweParo4ky',
+      changed: 'Смена языка',
+      ru: 'Ru',
+      en: 'En',
     },
   },
 };

@@ -29,13 +29,6 @@ const Input = () => {
   console.log('state', store);
   const { t } = useTranslation();
   const inputRef = useRef();
-  // const [urls, setUrls] = useState([]);
-  // const [inputValue, setInputValue] = useState('');
-  // const [formStatus, setFormStatus] = useState({
-  //   status: 'filling',
-  //   feedback: '',
-  // });
-  // Перенести всё в отдельный слайс инпута!!!
   console.log('formStatus in input', formStatus);
   // console.log('urls', urls);
 

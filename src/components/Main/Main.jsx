@@ -8,7 +8,6 @@ import ModalWindow from '../Modal/Modal';
 
 const Main = () => {
   const { isOpened } = useSelector((state) => state.modal);
-  console.log(isOpened, 'ISOPEND!!!!!!!!!!!!!@@@@@@@@@@@');
 
   return (
     <div id="Main" className="flex-grow-1">

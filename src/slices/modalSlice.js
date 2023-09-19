@@ -3,18 +3,29 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isOpened: false,
+  postId: '',
+  viewedPostsIds: [],
 };
 
 const modalSlice = createSlice({
   name: 'modal',
   initialState,
   reducers: {
-    toogleModal: (state, action) => {
+    // toogleModal: (state, action) => {
+    //   state.isOpened = !state.isOpened;
+    //   state.postId = action.payload;
+    // },
+    openModal: (state, action) => {
       state.isOpened = !state.isOpened;
       state.postId = action.payload;
+      state.viewedPostsIds.push(action.payload);
+    },
+    closeModal: (state) => {
+      state.isOpened = !state.isOpened;
+      state.postId = null;
     },
   },
 });
 
 export default modalSlice.reducer;
-export const { toogleModal } = modalSlice.actions;
+export const { openModal, closeModal } = modalSlice.actions;
