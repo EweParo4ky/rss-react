@@ -15,6 +15,7 @@ export default {
         mustBeUrl: 'The link must be a valid URL',
         invalidRSS: 'The resource does not contain valid RSS',
       },
+      loading: 'Loading',
       loaded: 'RSS successfully loaded',
       deleted: 'Feed was deleted',
       deletedAll: 'All feeds were deleted',

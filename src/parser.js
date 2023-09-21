@@ -20,7 +20,6 @@ const getPosts = (parsedData) => {
       description,
     };
   });
-  console.log('posts in parser', posts);
   return posts;
 };
 
@@ -35,7 +34,6 @@ const parser = (data) => {
   }
   const feed = getFeed(parsedData);
   const posts = getPosts(parsedData);
-  console.log('parsedData in parser', parsedData);
   return { feed, posts };
 };
 

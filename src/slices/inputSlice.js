@@ -18,6 +18,10 @@ const inputSlice = createSlice({
       const urls = action.payload;
       state.urls.push(urls);
     },
+    removeUrl: (state, action) => {
+      const link = action.payload;
+      state.urls = state.urls.filter((url) => url === link);
+    },
     setInputValue: (state, action) => {
       const value = action.payload;
       state.inputValue = value;
@@ -28,5 +32,7 @@ const inputSlice = createSlice({
   },
 });
 
-export const { setUrls, setInputValue, setFormStatus } = inputSlice.actions;
+export const {
+  setUrls, removeUrl, setInputValue, setFormStatus,
+} = inputSlice.actions;
 export default inputSlice.reducer;

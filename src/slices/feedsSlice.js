@@ -10,7 +10,7 @@ const feedsSlice = createSlice({
   initialState,
   reducers: {
     addFeed: (state, action) => {
-      state.feeds.push(action.payload);
+      state.feeds.unshift(action.payload);
       console.log('state in feeedsss', state);
     },
     removeFeed: (state, action) => {

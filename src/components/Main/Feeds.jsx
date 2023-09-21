@@ -3,22 +3,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { actions as feedsActions } from '../../slices/feedsSlice';
 import { actions as postsActions } from '../../slices/postsSlice';
-import { setFormStatus } from '../../slices/inputSlice';
+import { setFormStatus, removeUrl } from '../../slices/inputSlice';
 
 const Feeds = () => {
   const feeds = useSelector((state) => state.feeds.feeds);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const handleRemove = (id) => {
-    dispatch(feedsActions.removeFeed(id));
-    dispatch(postsActions.removePosts(id));
-    console.log('FEEEED LENGTH', feeds.length);
-    console.log('FEEEED', feeds);
+  const handleRemove = (feed) => {
+    dispatch(feedsActions.removeFeed(feed.id));
+    dispatch(postsActions.removePosts(feed.id));
+    dispatch(removeUrl(feed.feedLink));
     const feedback = feeds.length === 1 ? t('main.deletedAll') : t('main.deleted');
     dispatch(setFormStatus({
       feedback,
+      status: (feeds.length === 1 ? 'deleted' : 'deleting'),
     }));
+    console.log('FEEEED LENGTH', feeds.length);
+    console.log('FEEEED', feeds);
   };
 
   return (
@@ -44,7 +46,7 @@ const Feeds = () => {
                 <button
                   className="btn btn-sm rm-btn"
                   type="button"
-                  onClick={() => handleRemove(feed.id)}
+                  onClick={() => handleRemove(feed)}
                 >
                   <span className="material-symbols-outlined">delete</span>
                 </button>

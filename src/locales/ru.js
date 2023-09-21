@@ -15,6 +15,7 @@ export default {
         mustBeUrl: 'Ссылка должна быть валидным URL',
         invalidRSS: 'Ресурс не содержит валидный RSS',
       },
+      loading: 'Загрузка',
       loaded: 'RSS успешно загружен',
       deleted: 'Фид удалён',
       deletedAll: 'Все фиды были удалены',

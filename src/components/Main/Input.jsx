@@ -10,15 +10,7 @@ import parser from '../../parser';
 import { actions as feedsActions } from '../../slices/feedsSlice';
 import { actions as postsActions } from '../../slices/postsSlice';
 import { setUrls, setInputValue, setFormStatus } from '../../slices/inputSlice';
-
-const addIdToPosts = (items, feedId) => {
-  const postsWithId = items.map((item) => {
-    item.id = _.uniqueId();
-    item.feedId = feedId;
-    return item;
-  });
-  return postsWithId;
-};
+import addIdToPosts from '../../utilities';
 
 const Input = () => {
   const dispatch = useDispatch();
@@ -30,7 +22,7 @@ const Input = () => {
   const { t } = useTranslation();
   const inputRef = useRef();
   console.log('formStatus in input', formStatus);
-  // console.log('urls', urls);
+  console.log('urls', urls);
 
   const handleChangeValue = (e) => dispatch(setInputValue(e.target.value));
   const handleClick = (e) => {
@@ -38,13 +30,13 @@ const Input = () => {
     dispatch(setInputValue(value));
   };
 
-  const validateUrl = (url, linksList) => {
+  const validateUrl = (link, linksList) => {
     const schema = yup
       .string()
       .trim()
       .url(t('main.validationErrors.mustBeUrl'))
       .notOneOf(linksList, t('main.validationErrors.notOneOf'));
-    return schema.validate(url);
+    return schema.validate(link);
   };
 
   const formik = useFormik({
@@ -53,19 +45,21 @@ const Input = () => {
     },
     onSubmit: async () => {
       dispatch(setFormStatus({
-        status: 'sending',
+        status: 'loading',
+        feedback: t('main.loading'),
       }));
       try {
         const validatedUrl = await validateUrl(inputValue, urls);
         console.log(validatedUrl, 'validatedUrl');
-        dispatch(setUrls([...urls, validatedUrl]));
+        dispatch(setUrls(validatedUrl));
         const response = await axios.get(
           `https://allorigins.hexlet.app/get?url=${validatedUrl}`,
         );
-        // console.log('response', response);
+        console.log('response', response);
         const parsedData = parser(response.data.contents);
         // console.log('parsedData in input', parsedData);
         const { feed, posts } = parsedData;
+        feed.requestUrl = response.data.status.url;
         feed.id = _.uniqueId();
         const postsWithId = addIdToPosts(posts, feed.id);
         dispatch(feedsActions.addFeed(feed));
@@ -95,7 +89,19 @@ const Input = () => {
 
   useEffect(() => {
     inputRef.current.focus();
-  }, []);
+  }, [urls]);
+
+  const handleFeedBack = (status) => {
+    const variant = {
+      feeling: null,
+      loading: 'text-warning',
+      loaded: 'text-success',
+      failed: 'text-danger',
+      deleting: 'text-warning',
+      deleted: 'text-danger',
+    };
+    return variant[status];
+  };
 
   return (
     <div className="row">
@@ -108,7 +114,7 @@ const Input = () => {
               <div className="form-floating">
                 <input
                   className={`form-control w-100 ${
-                    formik.touched.inputUrl && formStatus.errors
+                    formik.touched.inputUrl && formStatus.status === 'failed'
                       ? 'is-invalid'
                       : ''
                   }`}
@@ -128,7 +134,7 @@ const Input = () => {
             </div>
             <div className="col-auto">
               <button
-                className={`h-100 btn btn-lg btn-primary px-sm-5 ${formStatus.status === 'sending' ? 'disabled' : null}`}
+                className={`h-100 btn btn-lg btn-primary px-sm-5 ${formStatus.status === 'loading' ? 'disabled' : null}`}
                 type="submit"
               >
                 {t('main.submitBtn')}
@@ -160,7 +166,7 @@ const Input = () => {
             </button>
           </li>
         </ul>
-        <p className={`feedback m-0 position-absolute small ${formStatus.status === 'failed' && 'text-danger'} ${formStatus.status === 'loaded' && 'text-success'} `}>
+        <p className={`feedback m-0 position-absolute small ${handleFeedBack(formStatus.status)}`}>
           {formStatus.feedback}
           {/* Реализовать перевод фидбека при переключении языка */}
         </p>

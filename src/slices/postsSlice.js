@@ -14,7 +14,7 @@ const postsSlice = createSlice({
     },
     removePosts: (state, action) => {
       const removedFeedId = action.payload;
-      state.posts = state.posts.filter((post) => post.id === removedFeedId);
+      state.posts = state.posts.filter((post) => post.feedId !== removedFeedId);
     },
   },
 });
