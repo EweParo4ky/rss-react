@@ -1,8 +1,11 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+// import { useSelector } from 'react-redux';
 
 const initialState = {
   posts: [],
+  status: null,
+  error: null,
 };
 
 const postsSlice = createSlice({

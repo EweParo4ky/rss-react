@@ -10,7 +10,7 @@ import parser from '../../parser';
 import { actions as feedsActions } from '../../slices/feedsSlice';
 import { actions as postsActions } from '../../slices/postsSlice';
 import { setUrls, setInputValue, setFormStatus } from '../../slices/inputSlice';
-import addIdToPosts from '../../utilities';
+import { addIdToPosts, addProxy } from '../../utilities';
 
 const Input = () => {
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ const Input = () => {
         console.log(validatedUrl, 'validatedUrl');
         dispatch(setUrls(validatedUrl));
         const response = await axios.get(
-          `https://allorigins.hexlet.app/get?url=${validatedUrl}`,
+          addProxy(validatedUrl),
         );
         console.log('response', response);
         const parsedData = parser(response.data.contents);

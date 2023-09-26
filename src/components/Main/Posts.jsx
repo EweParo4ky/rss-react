@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-// import axios from 'axios';
-// import _ from 'lodash';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+// import axios from 'axios';
+// import _ from 'lodash';
 import { openModal } from '../../slices/modalSlice';
 // import { actions as postsActions } from '../../slices/postsSlice';
 // import parser from '../../parser';
-// import addIdToPosts from '../../utilities';
+// import { addProxy } from '../../utilities';
 
 const Posts = () => {
   const dispatch = useDispatch();
@@ -21,14 +21,37 @@ const Posts = () => {
   const { t } = useTranslation();
   console.log('viewedPosts in Posts', viewedPostsIds);
 
-  const updatePosts = async () => {
-    console.log('Прошло 5 секунд');
-    setTimeout(() => updatePosts(), 5000);
-  };
+  // const updatePosts = async () => {
+  //   const timeOutUpdate = 5000;
+  //   const promises = feeds.map(async (feed) => {
+  //     const url = addProxy(feed.requestUrl);
+  //     return axios
+  //       .get(url)
+  //       .then((response) => {
+  //         console.log('RESPONSE############', response);
+  //         const paresedData = parser(response.data.contents);
+  //         console.log('PARESEDDATA###########', paresedData);
+  //         const actualLinksPosts = posts.map((post) => post.link);
+  //         const filteredPosts = paresedData.posts.filter(
+  //           (post) => !actualLinksPosts.includes(post.link),
+  //         );
+  //         if (filteredPosts.length > 0) {
+  //           const newPosts = filteredPosts.map((post) => ({
+  //             ...post,
+  //             id: _.uniqueId(),
+  //             feedId: feed.id,
+  //           }));
+  //           dispatch(postsActions.addPosts(newPosts));
+  //         }
+  //       })
+  //       .catch((e) => console.log(`Error: ${e}`));
+  //   });
+  //   Promise.all(promises).finally(() => setTimeout(() => updatePosts(), timeOutUpdate));
+  // };
 
-  useEffect(() => {
-    updatePosts();
-  });
+  // useEffect(() => {
+  //   updatePosts();
+  // });
 
   return (
     <div className="col-md-10 col-lg-8 order-1 mx-auto posts">

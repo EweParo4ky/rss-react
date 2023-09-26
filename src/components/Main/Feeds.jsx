@@ -19,8 +19,6 @@ const Feeds = () => {
       feedback,
       status: (feeds.length === 1 ? 'deleted' : 'deleting'),
     }));
-    console.log('FEEEED LENGTH', feeds.length);
-    console.log('FEEEED', feeds);
   };
 
   return (
