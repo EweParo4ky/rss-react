@@ -9,7 +9,7 @@
     It allows you to add unlimited feeds and keep them updated.
 
 ## Added features:
-     * Deleting feedds
+     * Deleting feeds
      * Switch language
 
  ### Requirements:
