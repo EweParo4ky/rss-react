@@ -4,9 +4,9 @@
 [![Render][Render-badge]][Render-url]
 
 ## Description:
-This is a simple service for aggregating RSS feeds.
-This version built on React
-It allows you to add unlimited feeds and keep them updated.
+    This is a simple service for aggregating RSS feeds.
+    This version built on React.
+    It allows you to add unlimited feeds and keep them updated.
 
 ## Added features:
      * Deleting feedds
