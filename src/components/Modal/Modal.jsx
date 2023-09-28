@@ -10,7 +10,6 @@ const ModalWindow = () => {
   const currentPostId = useSelector((state) => state.modal.postId);
   const { t } = useTranslation();
   const currentPost = posts.find((post) => post.id === currentPostId);
-  console.log('Current POST', currentPost);
 
   return (
     <Modal centered show>

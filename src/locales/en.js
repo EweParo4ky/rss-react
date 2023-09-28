@@ -7,7 +7,8 @@ export default {
       submitBtn: 'Add',
       example: 'Example:',
       exampleUrl: {
-        1: 'https://ru.hexlet.io/lessons.rss',
+        // 1: 'http://lorem-rss.herokuapp.com/feed?unit=second&interval=10', //Test
+        1: 'https://www.playground.ru/rss/news.xml',
         2: 'http://www.sports.ru/rss/main.xml',
       },
       validationErrors: {
@@ -19,6 +20,7 @@ export default {
       loaded: 'RSS successfully loaded',
       deleted: 'Feed was deleted',
       deletedAll: 'All feeds were deleted',
+      unknownError: 'Unknown error. Something goes wrong.',
     },
     modal: {
       btnRead: 'Read more...',

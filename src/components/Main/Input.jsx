@@ -14,15 +14,13 @@ import { addIdToPosts, addProxy } from '../../utilities';
 
 const Input = () => {
   const dispatch = useDispatch();
-  const store = useSelector((state) => state);
   const urls = useSelector((state) => state.input.urls);
   const inputValue = useSelector((state) => state.input.inputValue);
   const formStatus = useSelector((state) => state.input.formStatus);
-  console.log('state', store);
   const { t } = useTranslation();
   const inputRef = useRef();
-  console.log('formStatus in input', formStatus);
-  console.log('urls', urls);
+  // console.log('formStatus in input', formStatus);
+  // console.log('urls', urls);
 
   const handleChangeValue = (e) => dispatch(setInputValue(e.target.value));
   const handleClick = (e) => {
@@ -50,21 +48,17 @@ const Input = () => {
       }));
       try {
         const validatedUrl = await validateUrl(inputValue, urls);
-        console.log(validatedUrl, 'validatedUrl');
         dispatch(setUrls(validatedUrl));
         const response = await axios.get(
           addProxy(validatedUrl),
         );
-        console.log('response', response);
         const parsedData = parser(response.data.contents);
-        // console.log('parsedData in input', parsedData);
         const { feed, posts } = parsedData;
         feed.requestUrl = response.data.status.url;
         feed.id = _.uniqueId();
         const postsWithId = addIdToPosts(posts, feed.id);
         dispatch(feedsActions.addFeed(feed));
         dispatch(postsActions.addPosts(postsWithId));
-        // console.log('postsWithId', postsWithId);
         dispatch(setFormStatus({
           status: 'loaded',
           feedback: t('main.loaded'),
@@ -79,10 +73,10 @@ const Input = () => {
         } else {
           dispatch(setFormStatus({
             status: 'failed',
-            feedback: error.message,
+            feedback: t('main.unknownError'),
           }));
         }
-        console.error(error.isParserError);
+        console.error(error);
       }
     },
   });

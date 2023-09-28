@@ -11,10 +11,6 @@ const modalSlice = createSlice({
   name: 'modal',
   initialState,
   reducers: {
-    // toogleModal: (state, action) => {
-    //   state.isOpened = !state.isOpened;
-    //   state.postId = action.payload;
-    // },
     openModal: (state, action) => {
       state.isOpened = !state.isOpened;
       state.postId = action.payload;

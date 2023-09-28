@@ -1,10 +1,9 @@
 const getFeed = (parsedData) => {
   const feedTitle = parsedData.querySelector('title').textContent;
-  const feedLink = parsedData.querySelector('link').textContent;
   const feedDescription = parsedData.querySelector('description').textContent;
   //   const feedImg = parsedData.querySelector('image');
   //   const imgUrl = feedImg.querySelector('url').textContent;
-  return { feedTitle, feedLink, feedDescription };
+  return { feedTitle, feedDescription };
 };
 
 const getPosts = (parsedData) => {
@@ -25,7 +24,7 @@ const getPosts = (parsedData) => {
 
 const parser = (data) => {
   const parserInstance = new DOMParser();
-  const parsedData = parserInstance.parseFromString(data, 'text/xml');
+  const parsedData = parserInstance.parseFromString(data, 'application/xml');
   const parseError = parsedData.querySelector('parsererror');
   if (parseError) {
     const err = new Error(parseError.textContent);

@@ -29,28 +29,28 @@ const Feeds = () => {
             <h2 className="card-title h4">{t('feeds.header')}</h2>
           ) : null}
         </div>
-        <ul className="list-group border-0 rounded-0">
-          {feeds.map((feed) => {
-            console.log('feed', feed);
-            return (
-              <li
-                key={feed.id}
-                className="list-group-item d-flex justify-content-between align-items-start border-0 border-end-0 bg-light"
+        <ul
+          className="list-group border-0 rounded-0 overflow-auto"
+          style={{ maxHeight: '500px' }}
+        >
+          {feeds.map((feed) => (
+            <li
+              key={feed.id}
+              className="list-group-item mb-2  d-flex justify-content-between align-items-start border-0 border-end-0 bg-light"
+            >
+              <h3 className="h6 m-0">{feed.feedTitle}</h3>
+              <p className="m-0 small text-black-50">
+                {feed.feedDescription}
+              </p>
+              <button
+                className="btn btn-sm rm-btn"
+                type="button"
+                onClick={() => handleRemove(feed)}
               >
-                <h3 className="h6 m-0">{feed.feedTitle}</h3>
-                <p className="m-0 small text-black-50">
-                  {feed.feedDescription}
-                </p>
-                <button
-                  className="btn btn-sm rm-btn"
-                  type="button"
-                  onClick={() => handleRemove(feed)}
-                >
-                  <span className="material-symbols-outlined">delete</span>
-                </button>
-              </li>
-            );
-          })}
+                <span className="material-symbols-outlined">delete</span>
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
