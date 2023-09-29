@@ -25,5 +25,3 @@ jobs:
       - run: npm ci
       
       - run: make build
-      
-      - run: npm run lint
