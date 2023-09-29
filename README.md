@@ -1,7 +1,7 @@
 # [![Rss][Rss-badge]][Rss-url] Aggregator.
 
 ## Link to deploy:
-[![Render][Render-badge]][Render-url]
+[![versel][versel-badge]][versel-url]
 
 ## Description:
     This is a simple service for aggregating RSS feeds.
@@ -34,8 +34,8 @@
 [Rss-badge]: https://img.shields.io/badge/rss-F88900?style=for-the-badge&logo=rss&logoColor=white
 [Rss-url]: https://en.wikipedia.org/wiki/RSS
 
-[Render-badge]: https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white
-[Render-url]: https://rss-react.onrender.com
+[versel-badge]: https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white
+[versel-url]: https://rss-react-two.vercel.app/
 
 [React-badge]: https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB
 [React-url]: https://ru.legacy.reactjs.org/
