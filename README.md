@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+# [![Rss][Rss-badge]][Rss-url] Aggregator.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Link to deploy:
+[![versel][versel-badge]][versel-url]
 
-## Available Scripts
+## Description:
+    This is a simple service for aggregating RSS feeds.
+    This version built on React.
+    It allows you to add unlimited feeds and keep them updated.
 
-In the project directory, you can run:
+## Added features:
+     * Deleting feeds
+     * Switch language
 
-### `npm start`
+ ### Requirements:
+      
+     * Mac/linux
+     * Node v17.6 or higher
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+ ### Install
+    $ git clone git@github.com:EweParo4ky/rss-react.git
+    $ cd frontend-project-11
+    $ To install dependencies: make install
+    $ To run on localhost: make start
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+   ## Tools
+[![React][React-badge]][React-url]
+[![Redux][Redux-badge]][Redux-url]
+[![Axios][Axios-badge]][Axios-url]
+[![Bootstrap][Bootstrap-badge]][Bootstrap-url]
+[![i18next][i18next-badge]][i18next-url]
+[![yup][yup-badge]][yup-url]
 
-### `npm test`
+[Rss-badge]: https://img.shields.io/badge/rss-F88900?style=for-the-badge&logo=rss&logoColor=white
+[Rss-url]: https://en.wikipedia.org/wiki/RSS
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[versel-badge]: https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white
+[versel-url]: https://rss-react-two.vercel.app/
 
-### `npm run build`
+[React-badge]: https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB
+[React-url]: https://ru.legacy.reactjs.org/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[Redux-badge]: https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white
+[Redux-url]: https://redux.js.org/
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+[Axios-badge]: https://img.shields.io/badge/Axios-5A29E4?style=flat&logo=i18next&logoColor=white
+[Axios-url]: https://axios-http.com
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[Bootstrap-badge]: https://img.shields.io/badge/Bootstrap-712CF9?style=flat&logo=bootstrap&logoColor=white
+[Bootstrap-url]: https://getbootstrap.com
 
-### `npm run eject`
+[i18next-badge]: https://img.shields.io/badge/i18next-26A69A?style=flat&logo=i18next&logoColor=white
+[i18next-url]: https://www.i18next.com
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[yup-badge]: https://img.shields.io/badge/yup-gray?style=flat&logoColor=white
+[yup-url]: https://www.npmjs.com/package/yup
