@@ -29,6 +29,11 @@
     "eject": "react-scripts eject",
     "lint": "eslint --fix --ext .js,.jsx ."
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EweParo4ky/rss-react"
+  },
+  "author": "Ilya Sukharev <eweparo4ky@gmail.com>",
   "eslintConfig": {
     "extends": [
       "react-app",

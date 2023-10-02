@@ -14,7 +14,6 @@ const Posts = () => {
   const viewedPostsIds = new Set(
     useSelector((state) => state.modal.viewedPostsIds),
   );
-  console.log('viewedPosts in Posts', viewedPostsIds);
   const { t } = useTranslation();
 
   const updatePosts = () => {
